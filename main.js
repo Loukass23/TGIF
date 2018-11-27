@@ -13,19 +13,17 @@ membersObj.forEach(function(item){
     var tr = document.createElement('TR');
     tableBody.appendChild(tr);
       var td = document.createElement('TD');
-      td.appendChild(document.createTextNode(item.first_name + " , " + item.last_name));
-      
+      td.href = item.url;
+      td.innerHTML = '<a href="'+item.url+'">'+ item.first_name + ' , ' + item.last_name+'</a>';
+
       var td2 = document.createElement('TD');
-      
-      td2.appendChild(document.createTextNode(item.party));
+      td2.textContent =item.party;
 
       var td3 = document.createElement('TD');
-      
-      td3.appendChild(document.createTextNode(item.seniority));
+      td3.textContent = item.seniority;
 
       var td4 = document.createElement('TD');
-      
-      td4.appendChild(document.createTextNode(item.votes_with_party_pct + '%'));
+      td4.textContent = item.votes_with_party_pct + '%';
 
       tr.appendChild(td);
       tr.appendChild(td2);
