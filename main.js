@@ -1,47 +1,62 @@
 
-
+//variables
 var results = data.results;
 var membersObj;
-var name;
+ var checkboxParty = document.getElementById('checkboxPty');
+ var tableBody = document.getElementById("senate-house-data");
+
+//main
+tableByParty();
+checkboxParty.addEventListener('change', function(){onCheckboxPartyChange()});
+
 
 //fetch memberList 
 results.forEach(function(item){membersObj = item.members;});
-var tableBody = document.getElementById("senate-data");
 
-membersObj.forEach(function(item){
+//Parse members by party
+function tableByParty(party) {
+    
+    membersObj.forEach(function(item){
+      if(!party){
+        buildMemberTableRow(item);      }
+      else if (item.party.indexOf(party)!= -1) 
+      {buildMemberTableRow(item);
+      }            
+  });
+    }  
+
+    //Build HTML table
+  function buildMemberTableRow(membersItem) {
 
     var tr = document.createElement('TR');
     tableBody.appendChild(tr);
       var td = document.createElement('TD');
-      td.href = item.url;
-      td.innerHTML = '<a href="'+item.url+'">'+ item.first_name + ' , ' + item.last_name+'</a>';
+      td.href = membersItem.url;
+      td.innerHTML = '<a href="'+membersItem.url+'">'+ membersItem.first_name + ' , ' + membersItem.last_name+'</a>';
 
       var td2 = document.createElement('TD');
-      td2.textContent =item.party;
+      td2.textContent =membersItem.party;
 
       var td3 = document.createElement('TD');
-      td3.textContent = item.seniority;
+      td3.textContent = membersItem.seniority;
 
       var td4 = document.createElement('TD');
-      td4.textContent = item.votes_with_party_pct + '%';
+      td4.textContent = membersItem.votes_with_party_pct + '%';
 
       tr.appendChild(td);
       tr.appendChild(td2);
       tr.appendChild(td3);
       tr.appendChild(td4);
       tableBody.appendChild(tr);
-    
-  }
-);
- 
 
-        //  for ( var i indata.results)
-        // document.getElementById("senate-data").innerHTML = myArr[0];
-        
-        
-    //     var dataArray = JSON.stringify(data,null,2);   
-    //  var results = dataArray.split('results');
-    //  results = (results[1]+results[2]);
-    //  console.log(results);
-   
-   
+  }  
+
+//event listener checkboxes  
+  function onCheckboxPartyChange(){
+var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
+tableBody.innerHTML = "";
+if(tickedBoxes){
+   for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);
+}}
+else{tableBody();}   
+  }
