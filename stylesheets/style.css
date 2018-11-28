@@ -35,3 +35,9 @@
       .row.content {height:auto;} 
     }
  
+    .jumbotron {
+      background: url('header.jpg') no-repeat;
+      background-position: center;
+      background-size: cover;
+      background-position-y: top;
+    }

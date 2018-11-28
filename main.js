@@ -4,18 +4,19 @@ var results = data.results;
 var membersObj;
  var checkboxParty = document.getElementById('checkboxPty');
  var tableBody = document.getElementById("senate-house-data");
+//fetch memberList 
+results.forEach(function(item){membersObj = item.members;});
+
 
 //main
 tableByParty();
 checkboxParty.addEventListener('change', function(){onCheckboxPartyChange()});
 
 
-//fetch memberList 
-results.forEach(function(item){membersObj = item.members;});
+
 
 //Parse members by party
-function tableByParty(party) {
-    
+function tableByParty(party) { 
     membersObj.forEach(function(item){
       if(!party){
         buildMemberTableRow(item);      }
@@ -55,8 +56,7 @@ function tableByParty(party) {
   function onCheckboxPartyChange(){
 var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
 tableBody.innerHTML = "";
-if(tickedBoxes){
-   for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);
-}}
-else{tableBody();}   
+console.log(tickedBoxes);
+if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
+else{tableByParty();}   
   }
