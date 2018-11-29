@@ -85,9 +85,10 @@ function tableByParty(party ) {
       td4.textContent = membersItem.votes_with_party_pct + '%';
 
       var td5 = document.createElement('TD');
-      //td5.innerHTML = '<a class="state">'+membersItem.state+'</a>'
-      td5.textContent = membersItem.state;
-      td5.class = 'state';
+      td5.innerHTML = '<a class="state">'+membersItem.state+'</a>'
+      //td5.textContent = membersItem.state;
+     // td5.value = membersItem.state;
+      //td5.class = 'state'
 
       tr.appendChild(td);
       tr.appendChild(td2);
@@ -102,7 +103,6 @@ function tableByParty(party ) {
   function onCheckboxPartyChange(){
 var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
 tableBody.innerHTML = "";
-console.log(tickedBoxes);
 if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
 else{tableByParty();}
   }
@@ -110,13 +110,14 @@ else{tableByParty();}
  
   function onDropdownpStateChange() {
 
-    var conceptName = $('#dropDownStates').find(":selected").text();
-    var state = $("#stateItem").val();
+    var state = $('#dropDownStates').find(":selected").text();
+    //var state = $("#stateItem").val();
     var states = state ? [ state ] : [];
-console.log(states);
+
     $("#senate-house-data tr").each(function () {
       var state = $(this).find(".state").text();
       var stateSelected = isIncluded(state, states);
+      console.log(state + states + stateSelected);
       $(this).toggle(stateSelected);
     });
   }
