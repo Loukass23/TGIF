@@ -1,43 +1,84 @@
 
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
-      
+
     }
     #msg-glyph{
     color: white;
-  
+
     }
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
-    
+
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
       background-color: #f1f1f1;
       height: 100%;
     }
-    
+
     /* Set black background color, white text and some padding */
     footer {
       background-color: #555;
       color: white;
-      
+
     }
-    
+
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
         height: auto;
         padding: 15px;
       }
-      .row.content {height:auto;} 
+      .row.content {height:auto;}
     }
- 
+
     .jumbotron {
       background: url('header.jpg') no-repeat;
       background-position: center;
       background-size: cover;
       background-position-y: top;
+
     }
+    .dropdown btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+  }
+
+  .dropdown {
+      position: relative;
+      display: block;
+
+  }
+
+  #dropDownStates .dropdown-menu {
+      display: flex;
+      flex-flow:wrap;
+
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+  }
+
+  .dropdown-menu a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      flex-direction:row ;
+
+  }
+
+  .dropdown-menu a:hover {background-color: #ddd;}
+
+  .dropdown:hover .dropdown-menu {display: block;}
+
+  .dropdown:hover .dropbtn {background-color: #3e8e41;}
