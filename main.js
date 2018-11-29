@@ -14,17 +14,10 @@ results.forEach(function(item){membersObj = item.members;});
 tableByParty();
 
 //event listeners
-checkboxParty.addEventListener('change', function(){onCheckboxPartyChange()});
+checkboxParty.addEventListener('change', function(){onCheckboxPartyChangeJquery()});
 //dropdownpState.addEventListener('change', function(){onDropdownpStateChange()});
 $("#dropDownStates").on("change", onDropdownpStateChange);
 
-
-$(document).ready(function(){
-  $(".dropdown").on("show.bs.dropdown", function(event){
-      var x = $(event.relatedTarget).text(); // Get the button text
-      alert("You clicked on: " + x);
-  });
-});
 
 
 function buildDropdownStates(state) {
@@ -56,7 +49,7 @@ function jQueryTable(){
 //Parse members by party
 function tableByParty(party ) {
     membersObj.forEach(function(item){
-      
+
       buildDropdownStates(item.state);
       if(!party ){
         buildMemberTableRow(item);      }
@@ -74,9 +67,10 @@ function tableByParty(party ) {
       var td = document.createElement('TD');
       td.href = membersItem.url;
       td.innerHTML = '<a href="'+membersItem.url+'">'+ membersItem.first_name + ' , ' + membersItem.last_name+'</a>';
-      
+
       var td2 = document.createElement('TD');
-      td2.textContent =membersItem.party;
+      td2.innerHTML = '<a class="party">'+membersItem.party+'</a>'
+     // td2.textContent =membersItem.party;
 
       var td3 = document.createElement('TD');
       td3.textContent = membersItem.seniority;
@@ -85,7 +79,7 @@ function tableByParty(party ) {
       td4.textContent = membersItem.votes_with_party_pct + '%';
 
       var td5 = document.createElement('TD');
-      td5.innerHTML = '<a class="state">'+membersItem.state+'</a>'
+      td5.innerHTML = '<div class="state">'+membersItem.state+'</div>'
       //td5.textContent = membersItem.state;
      // td5.value = membersItem.state;
       //td5.class = 'state'
@@ -100,14 +94,17 @@ function tableByParty(party ) {
   }
 
 //event listener functions
-  function onCheckboxPartyChange(){
-var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
-tableBody.innerHTML = "";
-if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
-else{tableByParty();}
-  }
 
- 
+
+//obsolete
+//   function onCheckboxPartyChange(){
+// var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
+// tableBody.innerHTML = "";
+// if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
+// else{tableByParty();}
+//   }
+
+
   function onDropdownpStateChange() {
 
     var state = $('#dropDownStates').find(":selected").text();
@@ -124,3 +121,19 @@ else{tableByParty();}
    function isIncluded(x, lst) {
      return lst.length === 0 || lst.indexOf(x) != -1;
   }
+
+  function onCheckboxPartyChangeJquery(){
+    var tickedBox = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
+    var tickedBoxes = tickedBox ? [ tickedBox ] : [];
+    
+    $("#senate-house-data tr").each(function () {
+      var tickedBox = $(this).find(".party").text();
+      
+      for (var i in tickedBoxes){
+
+      var boxSelected = isIncluded(tickedBox, tickedBoxes[i]);
+      console.log(tickedBox+tickedBoxes+boxSelected)
+      $(this).toggle(boxSelected);}
+    });
+  }
+
