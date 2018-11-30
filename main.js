@@ -14,9 +14,12 @@ results.forEach(function(item){membersObj = item.members;});
 tableByParty();
 
 //event listeners
-checkboxParty.addEventListener('change', function(){onCheckboxPartyChangeJquery()});
+//checkboxParty.addEventListener('change', function(){onCheckboxPartyChange()});
 //dropdownpState.addEventListener('change', function(){onDropdownpStateChange()});
-$("#dropDownStates").on("change", onDropdownpStateChange);
+
+//event listener in JQuery
+$("#checkboxPty").on("change", onCheckboxPartyChangeJquery);
+$("#dropDownStates").on("change", onDropdownpStateChangeJquery);
 
 
 
@@ -97,15 +100,15 @@ function tableByParty(party ) {
 
 
 //obsolete
-//   function onCheckboxPartyChange(){
-// var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
-// tableBody.innerHTML = "";
-// if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
-// else{tableByParty();}
-//   }
+   function onCheckboxPartyChange(){
+ var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
+ tableBody.innerHTML = "";
+ if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
+ else{tableByParty();}
+   }
 
 
-  function onDropdownpStateChange() {
+  function onDropdownpStateChangeJquery() {
 
     var state = $('#dropDownStates').find(":selected").text();
     //var state = $("#stateItem").val();

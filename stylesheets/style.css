@@ -82,3 +82,18 @@
   .dropdown:hover .dropdown-menu {display: block;}
 
   .dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#filters  {
+  display: flex;
+ justify-content: space-between;
+ align-items: center;
+  width: auto;
+}
+  .form-group {
+    width: 30%;
+  }
+
+  .jumbotron {
+    min-width: 50%;
+    margin-bottom: 0px;
+  }
