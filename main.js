@@ -58,20 +58,17 @@ function filterBuildTable() {
   var party = getCheckboxValue();
 
   membersObj.forEach(function(item){
-    buildDropdownStates(item.state);
+  buildDropdownStates(item.state);
+
       if (party != "" && state != "All"){
-      console.log(party + state);
          for ( i =0 ; i< party.length ;i++){
-          if (isIncluded(party, item.party[i])&&(isIncluded(state, item.state))){buildMemberTableRow(item);
-            console.log(party + state);}}
-           }
+          if (isIncluded(party[i], item.party)&&(isIncluded(state, item.state))){buildMemberTableRow(item);}}
+        }
       if (party != "" && state == "All"){ 
-      for ( i =0 ; i< party.length ;i++){if(isIncluded(party, item.party[i])){buildMemberTableRow(item);
-        console.log(party + + state+isIncluded(state, item.state));}}
+      for ( i =0 ; i< party.length ;i++){if(isIncluded(party[i], item.party)){buildMemberTableRow(item);}}
       }
 
       if (party == "" && state != "All") {if (isIncluded(state, item.state)){buildMemberTableRow(item);}
-      console.log(party + state);
     }
       if (party == "" && state == "All") {buildMemberTableRow(item);}
          

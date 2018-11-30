@@ -57,9 +57,7 @@
   }
 
   #dropDownStates .dropdown-menu {
-      display: flex;
-      flex-flow:wrap;
-
+    
       position: absolute;
       background-color: #f1f1f1;
       min-width: 160px;
@@ -72,8 +70,7 @@
       color: black;
       padding: 12px 16px;
       text-decoration: none;
-      display: flex;
-      flex-direction:row ;
+     
 
   }
 
@@ -90,6 +87,7 @@
   width: auto;
 }
   .form-group {
+    display: inline-flex;
     width: 30%;
   }
 
@@ -97,3 +95,5 @@
     min-width: 50%;
     margin-bottom: 0px;
   }
+
+ 
