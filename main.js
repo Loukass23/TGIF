@@ -3,23 +3,24 @@
 var results = data.results;
 var membersObj;
  var checkboxParty = document.getElementById('checkboxPty');
- //var dropdownpState = document.getElementById('dropdownState');
+ var dropdownpState = document.getElementById('dropDownStates');
  var tableBody = document.getElementById("senate-house-data");
  var dropdownStates =[];
+ var state ="";
 //fetch memberList
 results.forEach(function(item){membersObj = item.members;});
 
 
 //main
-tableByParty();
+filterBuildTable();
 
 //event listeners
-//checkboxParty.addEventListener('change', function(){onCheckboxPartyChange()});
-//dropdownpState.addEventListener('change', function(){onDropdownpStateChange()});
+checkboxParty.addEventListener('change', function(){tableBody.innerHTML = "",filterBuildTable()});
+dropdownpState.addEventListener('change', function(){tableBody.innerHTML = "", filterBuildTable()});
 
 //event listener in JQuery
-$("#checkboxPty").on("change", onCheckboxPartyChangeJquery);
-$("#dropDownStates").on("change", onDropdownpStateChangeJquery);
+//$("#checkboxPty").on("change", onCheckboxPartyChangeJquery);
+//$("#dropDownStates").on("change", onDropdownpStateChangeJquery);
 
 
 
@@ -44,21 +45,36 @@ function buildDropdownStates(state) {
 }
 }
 
-function jQueryTable(){
-  $("#senate-house-data tr").each(function () {
-  $(this).toggle(stateSelected);
-});
-}
+// function jQueryTable(){
+//   $("#senate-house-data tr").each(function () {
+//   $(this).toggle(stateSelected);
+// });
+// }
 //Parse members by party
-function tableByParty(party ) {
-    membersObj.forEach(function(item){
+function filterBuildTable() {
+  
+   
+  var state = getDropdownValue();
+  var party = getCheckboxValue();
 
-      buildDropdownStates(item.state);
-      if(!party ){
-        buildMemberTableRow(item);      }
-      else if (item.party.indexOf(party)!= -1)
-      {buildMemberTableRow(item);
+  membersObj.forEach(function(item){
+    buildDropdownStates(item.state);
+      if (party != "" && state != "All"){
+      console.log(party + state);
+         for ( i =0 ; i< party.length ;i++){
+          if (isIncluded(party, item.party[i])&&(isIncluded(state, item.state))){buildMemberTableRow(item);
+            console.log(party + state);}}
+           }
+      if (party != "" && state == "All"){ 
+      for ( i =0 ; i< party.length ;i++){if(isIncluded(party, item.party[i])){buildMemberTableRow(item);
+        console.log(party + + state+isIncluded(state, item.state));}}
       }
+
+      if (party == "" && state != "All") {if (isIncluded(state, item.state)){buildMemberTableRow(item);}
+      console.log(party + state);
+    }
+      if (party == "" && state == "All") {buildMemberTableRow(item);}
+         
   });
     }
 
@@ -83,10 +99,7 @@ function tableByParty(party ) {
 
       var td5 = document.createElement('TD');
       td5.innerHTML = '<div class="state">'+membersItem.state+'</div>'
-      //td5.textContent = membersItem.state;
-     // td5.value = membersItem.state;
-      //td5.class = 'state'
-
+      
       tr.appendChild(td);
       tr.appendChild(td2);
       tr.appendChild(td3);
@@ -96,18 +109,29 @@ function tableByParty(party ) {
 
   }
 
-//event listener functions
-
-
-//obsolete
-   function onCheckboxPartyChange(){
- var tickedBoxes = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
- tableBody.innerHTML = "";
- if(tickedBoxes.length != 0){ for ( i=0; i< tickedBoxes.length; i++) {tableByParty(tickedBoxes[i]);}}
- else{tableByParty();}
+   function getCheckboxValue(){
+ return Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
    }
+   function getDropdownValue(){
+    return dropdownpState.options[dropdownpState.selectedIndex].text;}
+   function isIncluded(x, lst) {
+     return lst.length === 0 || lst.indexOf(x) != -1;
+  }
 
+  function onCheckboxPartyChangeJquery(){
+    var tickedBox = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
+    var tickedBoxes = tickedBox ? [ tickedBox ] : [];
 
+    $("#senate-house-data tr").each(function () {
+      var tickedBox = $(this).find(".party").text();
+
+      for (var i in tickedBoxes){
+
+      var boxSelected = isIncluded(tickedBox, tickedBoxes[i]);
+      console.log(tickedBox+tickedBoxes+boxSelected)
+      $(this).toggle(boxSelected);}
+    });
+  }
   function onDropdownpStateChangeJquery() {
 
     var state = $('#dropDownStates').find(":selected").text();
@@ -121,22 +145,3 @@ function tableByParty(party ) {
       $(this).toggle(stateSelected);
     });
   }
-   function isIncluded(x, lst) {
-     return lst.length === 0 || lst.indexOf(x) != -1;
-  }
-
-  function onCheckboxPartyChangeJquery(){
-    var tickedBox = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
-    var tickedBoxes = tickedBox ? [ tickedBox ] : [];
-    
-    $("#senate-house-data tr").each(function () {
-      var tickedBox = $(this).find(".party").text();
-      
-      for (var i in tickedBoxes){
-
-      var boxSelected = isIncluded(tickedBox, tickedBoxes[i]);
-      console.log(tickedBox+tickedBoxes+boxSelected)
-      $(this).toggle(boxSelected);}
-    });
-  }
-
