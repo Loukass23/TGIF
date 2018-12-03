@@ -40,8 +40,18 @@
       background-position: center;
       background-size: cover;
       background-position-y: top;
-
+      min-width: 60%;
+    margin-bottom: 0px;
+    text-align: center;
     }
+      
+  
+  .jumbotron h1 {
+    color: white;
+    font-weight: bold;
+  }
+
+
     .dropdown btn {
       background-color: #4CAF50;
       color: white;
@@ -91,9 +101,7 @@
     width: 30%;
   }
 
-  .jumbotron {
-    min-width: 50%;
-    margin-bottom: 0px;
-  }
+ .navbar {
+   background-color: darkslategrey;
+ }
 
- 
