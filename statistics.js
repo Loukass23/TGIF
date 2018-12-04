@@ -3,8 +3,9 @@
     var voteforR = 0, voteforI =0, voteforD =0;
     var sortedListByVote = data.results[0].members.sort(function(a, b){return a.votes_with_party_pct - b.votes_with_party_pct});
     var sortedListByAttendance = data.results[0].members.sort(function(a, b){return a.missed_votes - b.missed_votes});
-    var  percentage = document.getElementById('comment').value;
+    //var  percentage = document.getElementById('comment').value;
    //document.getElementById('comment').addEventListener('change',buildJSON);
+   var percentage = 10;
     var listRepublicans = data.results[0].members.filter(elt => elt.party == 'R');
 
     
@@ -33,13 +34,16 @@ voteforI /= listI.length;
 
 
 function leastPrc(list,parameter, prc) {   
+
+
+
     var least10 = [];
     console.log('l  '+  Math.round(list.length*prc/100));
      for (i=0 ; i < Math.round(list.length*prc/100); i++) { 
          switch (parameter){           
              case'name' : least10.push(list[i].last_name);
              break;
-             case'numberVote' : least10.push(list[i].total_votes);
+             case'partyVote' : least10.push(Math.round((list[i].total_votes*list[i].votes_with_party_pct)/100));
              break;
              case'prcPartyVote' : least10.push(list[i].votes_with_party_pct);
              break;
@@ -59,7 +63,7 @@ function mostPrc(list,parameter, prc) {
         switch (parameter){
             case'name' : most10.push(list[i].last_name);
             break;
-            case'numberVote' : most10.push(list[i].total_votes);
+            case'partyVote' : most10.push(Math.round((list[i].total_votes*list[i].votes_with_party_pct)/100));
             break;
             case'prcPartyVote' : most10.push(list[i].votes_with_party_pct);
             break;
@@ -114,14 +118,14 @@ var statistics = {"number": [
                         "leastLoyal" : [
                             {
                                 "name" : leastPrc(sortedListByAttendance,"name", percentage),
-                                "numberVote" : leastPrc(sortedListByAttendance,"numberVote", percentage),
+                                "partyVote" : leastPrc(sortedListByAttendance,"partyVote", percentage),
                                 "prcPartyVote" : leastPrc(sortedListByAttendance,"prcPartyVote", percentage),
                             }
                           ],
                         "mostLoyal" : [
                             {
                                 "name" : mostPrc(sortedListByAttendance,"name", percentage),
-                                "numberVote" : mostPrc(sortedListByAttendance,"numberVote", percentage),
+                                "partyVote" : mostPrc(sortedListByAttendance,"partyVote", percentage),
                                 "prcPartyVote" : mostPrc(sortedListByAttendance,"prcPartyVote", percentage),
                             }
                           ],
