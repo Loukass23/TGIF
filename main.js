@@ -1,79 +1,82 @@
 
 //variables
-var results = data.results;
-var membersObj;
+var membersObj = data.results[0].members;
  var checkboxParty = document.getElementById('checkboxPty');
  var dropdownpState = document.getElementById('dropDownStates');
  var tableBody = document.getElementById("senate-house-data");
  var dropdownStates =[];
  var state ="";
-//fetch memberList
-results.forEach(function(item){membersObj = item.members;});
 
 
 //main
+buildDropdownStates();
+addListeners();
+
 filterBuildTable();
 
+
+
 //event listeners
+function addListeners(){
 checkboxParty.addEventListener('change', function(){tableBody.innerHTML = "",filterBuildTable()});
 dropdownpState.addEventListener('change', function(){tableBody.innerHTML = "", filterBuildTable()});
-
+}
 //event listener in JQuery
 //$("#checkboxPty").on("change", onCheckboxPartyChangeJquery);
 //$("#dropDownStates").on("change", onDropdownpStateChangeJquery);
 
 
-
-function buildDropdownStates(state) {
-  var exists =false;
-  var stateID = document.getElementById("dropDownStates");
-  if (state)
-    {for(var i in dropdownStates) {if(dropdownStates[i] === state){exists = true;}}
-  if(!exists){
-  dropdownStates.push(state);
-  var el = document.createElement("State");
-  var option = document.createElement("option");
-  //el.innerHTML = '<option value='+state+'>'+state+'</option>';
-
-  // el.textContent = state;
-  el.id = 'stateItem';
-  el.value = state;
-  el.textContent =state;
-  option.appendChild(el)
-  stateID.appendChild(option);
-    }
-}
-}
-
+// Build Table in JQuery
 // function jQueryTable(){
 //   $("#senate-house-data tr").each(function () {
 //   $(this).toggle(stateSelected);
 // });
 // }
+
+
+
+
 //Parse members by party
 function filterBuildTable() {
   
-   
-  var state = getDropdownValue();
-  var party = getCheckboxValue();
+  //new filter
+  var filteredMemberArray = membersObj.filter(member => {
+    
+    var stateFilterValue = getDropdownValue() == "All" || getDropdownValue() == member.state;
+    var partyFilterValue = getCheckboxValue().length == 0 || getCheckboxValue().includes(member.party)
+    console.log(getDropdownValue());
+    return stateFilterValue && partyFilterValue
+  
+     });
 
-  membersObj.forEach(function(item){
-  buildDropdownStates(item.state);
+console.log(filteredMemberArray);
+ filteredMemberArray.forEach(member => {
+  buildMemberTableRow(member);
 
-      if (party != "" && state != "All"){
-         for ( i =0 ; i< party.length ;i++){
-          if (isIncluded(party[i], item.party)&&(isIncluded(state, item.state))){buildMemberTableRow(item);}}
-        }
-      if (party != "" && state == "All"){ 
-      for ( i =0 ; i< party.length ;i++){if(isIncluded(party[i], item.party)){buildMemberTableRow(item);}}
-      }
+  
+  // var state = getDropdownValue();
+  // var party = getCheckboxValue();
 
-      if (party == "" && state != "All") {if (isIncluded(state, item.state)){buildMemberTableRow(item);}
-    }
-      if (party == "" && state == "All") {buildMemberTableRow(item);}
-         
+  //membersObj.forEach(function(item){
+
+    //old filter
+    //   if (party != "" && state != "All"){
+    //      for ( i =0 ; i< party.length ;i++){
+    //       if (isIncluded(party[i], item.party)&&(isIncluded(state, item.state))){buildMemberTableRow(item);}}
+    //     }
+    //   if (party != "" && state == "All"){
+    //   for ( i =0 ; i< party.length ;i++){if(isIncluded(party[i], item.party)){buildMemberTableRow(item);}}
+    //   }
+
+    //   if (party == "" && state != "All") {if (isIncluded(state, item.state)){buildMemberTableRow(item);}
+    // }
+    //   if (party == "" && state == "All") {buildMemberTableRow(item);}
+
   });
     }
+
+    
+
 
     //Build HTML row
   function buildMemberTableRow(membersItem) {
@@ -96,7 +99,7 @@ function filterBuildTable() {
 
       var td5 = document.createElement('TD');
       td5.innerHTML = '<div class="state">'+membersItem.state+'</div>'
-      
+
       tr.appendChild(td);
       tr.appendChild(td2);
       tr.appendChild(td3);
@@ -106,15 +109,52 @@ function filterBuildTable() {
 
   }
 
-   function getCheckboxValue(){
+  
+
+
+
+
+//getters & setters
+
+
+function buildDropdownStates() {
+  
+  membersObj.forEach(function(item){
+  var state = item.state;  
+  var exists =false;
+  var stateID = document.getElementById("dropDownStates");
+  if (state)
+    {for(var i in dropdownStates) {if(dropdownStates[i] === state){exists = true;}}
+  if(!exists){
+  dropdownStates.push(state);
+  var el = document.createElement("State");
+  var option = document.createElement("option");
+  //el.innerHTML = '<option value='+state+'>'+state+'</option>';
+
+  // el.textContent = state;
+  el.id = 'stateItem';
+  el.value = state;
+  el.textContent =state;
+  option.appendChild(el)
+  stateID.appendChild(option);
+    }
+}
+});
+}
+function getCheckboxValue(){
  return Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
    }
-   function getDropdownValue(){
+
+function getDropdownValue(){
     return dropdownpState.options[dropdownpState.selectedIndex].text;}
-   function isIncluded(x, lst) {
+
+function isIncluded(x, lst) {
      return lst.length === 0 || lst.indexOf(x) != -1;
   }
 
+
+
+    //JQuery
   function onCheckboxPartyChangeJquery(){
     var tickedBox = Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value) ;
     var tickedBoxes = tickedBox ? [ tickedBox ] : [];
