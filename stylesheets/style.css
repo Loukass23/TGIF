@@ -36,59 +36,25 @@
     }
 
     .jumbotron {
+      
+      background-color: rgba(47, 79, 79, 0.075) ;
       background: url('header.jpg') no-repeat;
       background-position: center;
       background-size: cover;
       background-position-y: top;
-      min-width: 60%;
+      min-width: 80%;
     margin-bottom: 0px;
     text-align: center;
+    
     }
       
   
   .jumbotron h1 {
-    color: white;
+    color: papayawhip;
     font-weight: bold;
+    animation-delay: 0s;
   }
 
-
-    .dropdown btn {
-      background-color: #4CAF50;
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-      border: none;
-  }
-
-  .dropdown {
-      position: relative;
-      display: block;
-
-  }
-
-  #dropDownStates .dropdown-menu {
-    
-      position: absolute;
-      background-color: #f1f1f1;
-      min-width: 160px;
-
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-  }
-
-  .dropdown-menu a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-     
-
-  }
-
-  .dropdown-menu a:hover {background-color: #ddd;}
-
-  .dropdown:hover .dropdown-menu {display: block;}
-
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 #filters  {
   display: flex;
@@ -106,7 +72,21 @@
  }
 
  hr {
-  border-top: 1px dotted #000000 !important;
-  margin-bottom:5px !important; 
-  margin-top:5px !important;
+   background-color: rgba(47, 79, 79, 0.541) ;
+
+}
+.row.vertical-divider [class*='col-']:not(:last-child)::after {
+  background: #e0e0e0;
+  width: 1px;
+  content: "";
+  display:block;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  right: 0;
+  min-height: 70px;
+}
+
+#comment {
+  width:2em;
 }

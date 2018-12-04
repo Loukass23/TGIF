@@ -3,10 +3,14 @@
     var voteforR = 0, voteforI =0, voteforD =0;
     var sortedListByVote = data.results[0].members.sort(function(a, b){return a.votes_with_party_pct - b.votes_with_party_pct});
     var sortedListByAttendance = data.results[0].members.sort(function(a, b){return a.missed_votes - b.missed_votes});
-    var percentage =10;
+    var  percentage = document.getElementById('comment').value;
+   //document.getElementById('comment').addEventListener('change',buildJSON);
+    var listRepublicans = data.results[0].members.filter(elt => elt.party == 'R');
+
     
-
-
+      
+        console.log(percentage);
+    
    data.results[0].members.forEach(function(item){
     switch(item.party){
         case 'R':
@@ -22,6 +26,7 @@
         voteforI += item.votes_with_party_pct;
     }
 }); 
+
 voteforR /= listR.length;
 voteforD /= listD.length;
 voteforI /= listI.length;
@@ -70,6 +75,7 @@ function mostPrc(list,parameter, prc) {
      
           
 }
+
 var statistics = {"number": [   
                     { "republicans" : listR.length,  
                       "democrats"  : listD.length,

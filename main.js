@@ -18,8 +18,9 @@ filterBuildTable();
 
 //event listeners
 function addListeners(){
-checkboxParty.addEventListener('change', function(){tableBody.innerHTML = "",filterBuildTable()});
-dropdownpState.addEventListener('change', function(){tableBody.innerHTML = "", filterBuildTable()});
+checkboxParty.addEventListener('change', filterBuildTable);
+// checkboxParty.addEventListener('change', function(){tableBody.innerHTML = "",filterBuildTable()});
+dropdownpState.addEventListener('change', filterBuildTable);
 }
 //event listener in JQuery
 //$("#checkboxPty").on("change", onCheckboxPartyChangeJquery);
@@ -38,7 +39,7 @@ dropdownpState.addEventListener('change', function(){tableBody.innerHTML = "", f
 
 //Parse members by party
 function filterBuildTable() {
-  
+  tableBody.innerHTML = "";
   //new filter
   var filteredMemberArray = membersObj.filter(member => {
     
