@@ -3,8 +3,10 @@
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
+      border-block-start-color: antiquewhite;
 
     }
+    
     #msg-glyph{
     color: white;
 
