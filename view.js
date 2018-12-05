@@ -13,7 +13,7 @@
  buildTable3('mostAtt', statistics.attendanceVote[0].missedLeast);
 
  
- //console.log(JSON.stringify(statistics));
+ console.log(JSON.stringify(statistics));
 
 function buildTable1(el, count, vote) {
     element = document.getElementById(el);

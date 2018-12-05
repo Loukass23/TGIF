@@ -5,17 +5,20 @@ var percentage = Math.round(10 * fullList.length / 100);
     
 function getListsLenght(party)
         {
-            return fullList.filter(a => a.party == party).length;     
+            return  fullList.filter(a => a.party == party).length;   
+               
         }
 function getAvVoteforParty(party)
         {
            var list = fullList.filter(a => a.party == party);
+           if (list.length != 0){
            var list2 = list.map(a => a.votes_with_party_pct);
-           var sum = list2.reduce(function(a, b) { return a + b; });
-           return (sum/list.length).toFixed(2);
+           console.log(list2);
+           var sum = list2.reduce((x, y) => x + y,0);
+           return (sum/list.length).toFixed(2);}
+           else return 0;
         }
          
-
 function getLoyaltyList(leastMost){
     var res;
     var list = fullList.sort(function(a, b){return a.votes_with_party_pct - b.votes_with_party_pct});
@@ -58,7 +61,6 @@ return res.map(a => {
 
 }
 
-
 var statistics = {
     "number": [   
     { "republicans" : getListsLenght('R'),  
@@ -69,14 +71,11 @@ var statistics = {
       {
         "republicans" : getAvVoteforParty('R'),  
         "democrats"  : getAvVoteforParty('D'),
-        "independants"   : getAvVoteforParty('I') },   
-      
+        "independants"   : getAvVoteforParty('I') },    
   ]    ,         
-  
   "attendanceVote" : [
       {
-          "missedLeast" : getAttendanceList('least'),
-              
+          "missedLeast" : getAttendanceList('least'), 
           "missedMost" : getAttendanceList('most'),
             
       }
