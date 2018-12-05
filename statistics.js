@@ -40,7 +40,7 @@ return res.map(a => {
 function getAttendanceList(leastMost){
     var res;
     var list = fullList.sort(function(a, b){return a.missed_votes_pct - b.missed_votes_pct});
-    var limitLeast = list[percentage];
+    var limitLeast = list[percentage-1];
     var limitMost = list[list.length-percentage];
 
     //get least and most
@@ -57,6 +57,7 @@ return res.map(a => {
                 return [a.first_name+' , ' + a.last_name, a.missed_votes, a.missed_votes_pct]; })
 
 }
+
 
 var statistics = {
     "number": [   
