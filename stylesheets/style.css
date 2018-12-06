@@ -1,6 +1,7 @@
 
     body{
       background-image: linear-gradient(to bottom right, white, rgba(47, 79, 79, 0.705));
+      font-family:Helvetica;
     }
    
     .navbar {
@@ -44,13 +45,13 @@
 
     .jumbotron {
       background: url('header.jpg') no-repeat;
-      background-color: black;
       background-position: center;
       background-size: cover;
       background-position-y: top;
       min-width: 80%;
     margin-bottom: 0px;
     text-align: center;
+    
       
     }
     .jumbotron img {
@@ -61,10 +62,14 @@
   .jumbotron h1 {
     color: white;
     font-weight: bold;
-    animation-delay: 0s;
     background-color: rgba(0, 0, 0, 0.342);
+    animation-name: jumboAnim;
+  animation-duration: 4s;
   }
-
+  @keyframes jumboAnim {
+    0%   {opacity:0.1;}
+    100% {opacity:1;}
+  }
 
 #filters  {
   display: flex;
@@ -83,11 +88,11 @@
  }
 
  hr {
-   background-color: darkslategray ;
+   background-color: rgba(47, 79, 79, 0.726) ;
 
 }
 .row.vertical-divider [class*='col-']:not(:last-child)::after {
-  background: #e0e0e0;
+  background: rgba(47, 79, 79, 0.555);
   width: 1px;
   content: "";
   display:block;
@@ -102,7 +107,9 @@
   width:2em;
 }
 .table {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.671);
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px grey;
 }
 .navbar-inverse a:focus, .navbar-inverse .navbar-nav a:hover{
   background-color: #08080852;
