@@ -78,11 +78,12 @@
   }
 
  .navbar {
-   background-color: darkslategrey;
+  background-image: linear-gradient(to bottom right, darkslategrey, rgba(137, 146, 146, 0.705));
+   
  }
 
  hr {
-   background-color: rgba(47, 79, 79, 0.541) ;
+   background-color: darkslategray ;
 
 }
 .row.vertical-divider [class*='col-']:not(:last-child)::after {

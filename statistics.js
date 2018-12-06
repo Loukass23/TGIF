@@ -24,7 +24,6 @@ function getLoyaltyList(leastMost){
     var list = fullList.sort(function(a, b){return a.votes_with_party_pct - b.votes_with_party_pct});
     var limitLeast = list[percentage-1];
     var limitMost = list[list.length-percentage];
-    console.log(list.length-percentage);
     //get least and most
     if(leastMost == 'least')
         {   var res = list.filter(a =>  a.votes_with_party_pct <= limitLeast.votes_with_party_pct);
@@ -39,10 +38,9 @@ return res.map(a => {
                 return [a.first_name+' , ' + a.last_name, (a.total_votes*a.votes_with_party_pct/100).toFixed(2), a.votes_with_party_pct]; })
 
 }
-
 function getAttendanceList(leastMost){
     var res;
-    var list = fullList.sort(function(a, b){return a.missed_votes_pct - b.missed_votes_pct});
+    var list = fullList.sort((a, b) => {return a.missed_votes_pct - b.missed_votes_pct});
     var limitLeast = list[percentage-1];
     var limitMost = list[list.length-percentage];
 
@@ -52,8 +50,7 @@ function getAttendanceList(leastMost){
             }
    else
         {var list2 = list.filter(a =>  a.missed_votes_pct >= limitMost.missed_votes_pct);
-       res = list2.sort(function(a, b){return b.missed_votes_pct - a.missed_votes_pct});}
-
+       res = list2.sort((a, b) => {return b.missed_votes_pct - a.missed_votes_pct});}
 
        //strip values to needed
 return res.map(a => {
