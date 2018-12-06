@@ -90,7 +90,8 @@ console.log(filteredMemberArray);
 
       var td2 = document.createElement('TD');
       td2.innerHTML = '<a class="party">'+membersItem.party+'</a>'
-     // td2.textContent =membersItem.party;
+     
+      
 
       var td3 = document.createElement('TD');
       td3.textContent = membersItem.seniority;
