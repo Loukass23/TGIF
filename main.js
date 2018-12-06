@@ -1,21 +1,60 @@
 
+var checkboxParty = document.getElementById('checkboxPty');
+var dropdownpState = document.getElementById('dropDownStates');
+var tableBody = document.getElementById("senate-house-data");
+var dropdownStates =[];
+var state ="";
+
+
+fetchJson('https://api.propublica.org/congress/v1/113/senate/members.json', {
+          method: "GET",
+          headers: new Headers({"X-API-Key": 'yM7WFa1TO8Y2eJQxD31fGVolfpMVNmqu9XOjBvfq'})
+});
+
+
+function fetchJson(url, init) {
+  
+  return fetch(url, init).then(function(response) {
+    if (response.ok) {
+      return response.json();    
+    }
+    throw new Error(response.statusText);
+  }).then(function(json) {
+
+    membersObj = json.results[0].members;
+    startMain();
+    console.log(membersObj);
+    
+
+    })
+  }
 //variables
-var membersObj = data.results[0].members;
- var checkboxParty = document.getElementById('checkboxPty');
- var dropdownpState = document.getElementById('dropDownStates');
- var tableBody = document.getElementById("senate-house-data");
- var dropdownStates =[];
- var state ="";
+
+function startMain(){
+
+buildDropdownStates();
+addListeners();
+filterBuildTable();
+
+ 
+
 
 
 //main
-buildDropdownStates();
-addListeners();
+var app = new Vue({
+  el: '#app',
+  data: {
+    employees: [
+    ]
+  }
+});
 
-filterBuildTable();
+app.employees = [ 
+  { name: membersObj.first_name , url: "http://company/jsmith.html" },
+  { name: "Mary Jones", url: "http://company/mjones.html" }
+];
 
-
-
+}
 //event listeners
 function addListeners(){
 checkboxParty.addEventListener('change', filterBuildTable);
@@ -45,34 +84,12 @@ function filterBuildTable() {
     
     var stateFilterValue = getDropdownValue() == "All" || getDropdownValue() == member.state;
     var partyFilterValue = getCheckboxValue().length == 0 || getCheckboxValue().includes(member.party)
-    console.log(getDropdownValue());
     return stateFilterValue && partyFilterValue
   
      });
 
-console.log(filteredMemberArray);
  filteredMemberArray.forEach(member => {
   buildMemberTableRow(member);
-
-  
-  // var state = getDropdownValue();
-  // var party = getCheckboxValue();
-
-  //membersObj.forEach(function(item){
-
-    //old filter
-    //   if (party != "" && state != "All"){
-    //      for ( i =0 ; i< party.length ;i++){
-    //       if (isIncluded(party[i], item.party)&&(isIncluded(state, item.state))){buildMemberTableRow(item);}}
-    //     }
-    //   if (party != "" && state == "All"){
-    //   for ( i =0 ; i< party.length ;i++){if(isIncluded(party[i], item.party)){buildMemberTableRow(item);}}
-    //   }
-
-    //   if (party == "" && state != "All") {if (isIncluded(state, item.state)){buildMemberTableRow(item);}
-    // }
-    //   if (party == "" && state == "All") {buildMemberTableRow(item);}
-
   });
     }
 

@@ -30,9 +30,9 @@ function buildTable3(el, obj) {
 
         for (var i in obj) {
             var newRow = document.createElement('tr')
-            newRow.insertCell().innerHTML = obj[i][0];
-            newRow.insertCell().innerHTML = obj[i][1];
-            newRow.insertCell().innerHTML = obj[i][2];
+             for (var j in obj[i]){
+                 newRow.insertCell().innerHTML = obj[i][j];
+             }            
             element.append(newRow);
         }
     }
