@@ -165,3 +165,7 @@ justify-content: center;
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+#table {
+	margin: 0 auto;
+	width: 500px;
+}

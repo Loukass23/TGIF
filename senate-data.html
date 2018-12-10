@@ -95,21 +95,12 @@
           <div class="col-sm-2 " id="loader">
               <div class="loader"></div>
             </div>
-        </div>
-        <div class="container" id="app"> 
-          <ul>  
-          <li v-for="employee in employees">
-                <a v-bind:href="employee.url">{{ employee.name }}</a>
-              </li>  
-          </ul>
-          <!-- <tbody>
+       
+        <div id="app">
+          
+
+            <button v-on:click="filters()">Filter</button>
             
-            <tr v-for="(value, key) in senators">
-              <td>{{value.first_name}} {{value.middle_name}} {{value.last_name}}</td> 
-              
-            </tr>
-          </tbody>  -->
-        </div> 
         <table class="table table-striped table-hover" id="dataTable">
           <thead>
             <tr class="bg-primary">
@@ -120,21 +111,31 @@
               <th>State</th>
             </tr>
           </thead>
-
-          <tbody id="senate-house-data"></tbody>
+          
+          <tbody>               
+            <tr v-for="senator in filteredList">
+              <td>{{ senator.first_name}} , {{ senator.last_name}}</td>
+              <td>{{ senator.party}}</td>
+              <td>{{ senator.seniority}}</td>
+              <td>{{ senator.votes_with_party_pct}}</td>
+              <td>{{ senator.state}}</td>
+                </div> 
+            </tr>
+          </tbody>
         </table>
-
       </div>
-    </div>
-  </div>
-  </div>
+
+
+   
 
   <footer class="container-fluid text-center">
     <p>@2016 TGIF | All rights reserved</p>
   </footer>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+
+  <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
   <script>var url ='https://api.propublica.org/congress/v1/113/senate/members.json' </script>
-  <script src="main.js"> </script>
+  <script src="main2.js"> </script>
 </body>
 
 </html>
