@@ -63,7 +63,7 @@ new Vue({
             });
           },
         filters() {
-            console.log('filter');
+            console.log(this.getCheckboxValue());
 
             this.filteredList = this.senators.filter(a => {
                 var stateFilterValue = this.getDropdownValue() == "All" || this.getDropdownValue() == a.state;
