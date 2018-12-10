@@ -1,11 +1,13 @@
 const dropDownStates = document.getElementById('dropDownStates');
+const checkboxParty = document.getElementById('checkboxPty');
+const loader = document.getElementById("loader");
+
 
 new Vue({
     el: '#app',
     data: {
         senators: null,
         filteredList: null,
-        stateFilter: ""
     },
     methods: {
         fetchJson() {
@@ -20,7 +22,7 @@ new Vue({
                         return response.json();
                     }
                 }).then(function (json) {
-
+                    loader.innerHTML = "";
                     _this.senators = json.results[0].members;
                     _this.filteredList = json.results[0].members;
                     _this.buildDropdownStates();
@@ -62,15 +64,21 @@ new Vue({
           },
         filters() {
             console.log('filter');
+
             this.filteredList = this.senators.filter(a => {
-                var stateFilterValue = this.stateFilter == "All" || this.stateFilter == a.state;
-                //var partyFilterValue = getCheckboxValue().length == 0 || getCheckboxValue().includes(a.party)
-                return stateFilterValue 
-                //&& partyFilterValue
+                var stateFilterValue = this.getDropdownValue() == "All" || this.getDropdownValue() == a.state;
+                var partyFilterValue = this.getCheckboxValue().length == 0 || this.getCheckboxValue().includes(a.party)
+                return stateFilterValue && partyFilterValue
               })
 
             
         },
+        getDropdownValue() {
+            return dropDownStates.options[dropDownStates.selectedIndex].text;
+          },
+        getCheckboxValue() {
+            return Array.from(document.querySelectorAll('input[name=checkboxParty]:checked')).map(elt => elt.value);
+          },
         addListeners() {
             //partyFilter.addEventListener('change', this.filters());
             var dropDownStates = document.getElementById('dropDownStates');
