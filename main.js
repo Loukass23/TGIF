@@ -2,11 +2,12 @@
 var checkboxParty = document.getElementById('checkboxPty');
 var dropdownpState = document.getElementById('dropDownStates');
 var tableBody = document.getElementById("senate-house-data");
+var loader = document.getElementById("loader");
 var dropdownStates =[];
 var state ="";
 
 
-fetchJson('https://api.propublica.org/congress/v1/113/senate/members.json', {
+fetchJson(url , {
           method: "GET",
           headers: new Headers({"X-API-Key": 'yM7WFa1TO8Y2eJQxD31fGVolfpMVNmqu9XOjBvfq'})
 });
@@ -18,26 +19,21 @@ function fetchJson(url, init) {
     if (response.ok) {
       return response.json();    
     }
-    throw new Error(response.statusText);
   }).then(function(json) {
 
-    membersObj = json.results[0].members;
-    startMain();
-    console.log(membersObj);
-    
-
+        startMain(json.results[0].members);
+   
     })
+    .catch(console.error("Server Error"));
+    
   }
 //variables
 
-function startMain(){
-
-buildDropdownStates();
+function startMain(membersObj){
+loader.innerHTML ="";
+buildDropdownStates(membersObj);
 addListeners();
-filterBuildTable();
-
- 
-
+filterBuildTable(membersObj);
 
 
 //main
@@ -77,7 +73,7 @@ dropdownpState.addEventListener('change', filterBuildTable);
 
 
 //Parse members by party
-function filterBuildTable() {
+function filterBuildTable(membersObj) {
   tableBody.innerHTML = "";
   //new filter
   var filteredMemberArray = membersObj.filter(member => {
@@ -136,7 +132,7 @@ function filterBuildTable() {
 //getters & setters
 
 
-function buildDropdownStates() {
+function buildDropdownStates(membersObj) {
   
   membersObj.forEach(function(item){
   var state = item.state;  

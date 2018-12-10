@@ -71,7 +71,7 @@
       <div class="col-sm-8 text-left">
         <h1>Senators</h1>
         <div class="row">
-          <div class="col-sm-6 ">
+          <div class="col-sm-5 ">
             <div class="form-check form-check-inline" id="checkboxPty">
               <input type="checkbox" name="checkboxParty" value='D'>
               <label class="form-check-label" for="inlineCheckbox1">Democrats</label>
@@ -83,7 +83,7 @@
             </div>
           </div>
 
-          <div class="col-sm-6 ">
+          <div class="col-sm-5 ">
             <div class="form-group">
               <label for="sel1">Select State:</label>
               <select class="filter form-control form-control-sm" id="dropDownStates">
@@ -92,6 +92,9 @@
               </select>
             </div>
           </div>
+          <div class="col-sm-2 " id="loader">
+              <div class="loader"></div>
+            </div>
         </div>
         <div class="container" id="app"> 
           <ul>  
@@ -130,7 +133,7 @@
     <p>@2016 TGIF | All rights reserved</p>
   </footer>
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <!--<script src="pro-congress-113-senate.js"> </script>-->
+  <script>var url ='https://api.propublica.org/congress/v1/113/senate/members.json' </script>
   <script src="main.js"> </script>
 </body>
 
