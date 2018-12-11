@@ -9,7 +9,8 @@ new Vue({
     retrieved: false,
     senators: null,
     checkedNames: [],
-    selected: 'All'
+    selected: 'All',
+    states: []
 
   },
   methods: {
@@ -36,40 +37,8 @@ new Vue({
         })
     },
     buildDropdownStates() {
-      var dropdownStates = [];
-      this.senators.forEach(function (item) {
-        var state = item.state;
-        var exists = false;
-        var stateID = document.getElementById("dropDownStates");
-        if (state) {
-          for (var i in dropdownStates) {
-            if (dropdownStates[i] === state) {
-              exists = true;
-            }
-          }
-          if (!exists) {
-            dropdownStates.push(state);
-            var el = document.createElement("State");
-            var option = document.createElement("option");
-
-            el.id = 'stateItem';
-            el.value = state;
-            el.textContent = state;
-            option.appendChild(el)
-            stateID.appendChild(option);
-          }
-        }
-      });
-    },
-    filters() {
-      console.log(this.dropDown);
-      this.senators = this.senators.filter(a => {
-        var stateFilterValue = this.dropDown == "All" || this.dropDown == a.state;
-        var partyFilterValue = this.checkedBox.length == 0 || this.checkedBox.includes(a.party)
-        return stateFilterValue && partyFilterValue
-      })
-
-
+      let stateArray = this.senators.map(a => a.state);
+     this.states = stateArray.filter(function(item, i, ar){ return ar.indexOf(item) === i; });
     }
   },
   created() {
@@ -79,6 +48,7 @@ new Vue({
 
     filteredList: function () {
       if(this.retrieved){
+        console.log(this.selected);
       return this.senators.filter(a => {
         var stateFilterValue = this.selected == "All" || this.selected == a.state;
         var partyFilterValue = this.checkedNames.length == 0 || this.checkedNames.includes(a.party)
