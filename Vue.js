@@ -10,7 +10,8 @@ new Vue({
     senators: null,
     checkedNames: [],
     selected: 'All',
-    states: []
+    states: [],
+    stats: []
 
   },
   methods: {
@@ -25,10 +26,10 @@ new Vue({
             return response.json();
           }
         }).then((json) => {
-          loader.innerHTML = "";
+          if (loader){loader.innerHTML = "";}
+          
           this.senators = json.results[0].members;
           this.retrieved = true;
-          console.log(this.senators);
           this.buildDropdownStates();
 
         })
@@ -43,6 +44,8 @@ new Vue({
   },
   created() {
     this.fetchJson();
+    if(statistics){this.stats = statistics;}
+    
   },
   computed: {
 

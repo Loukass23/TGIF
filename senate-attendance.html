@@ -61,7 +61,7 @@
         </div>
     </nav>
 
-
+    <div id="app">
     <div class="container-fluid text-center">
         <div class="row "></div>
         <div class="row vertical-divider">
@@ -89,15 +89,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id=statR>
+                        <tr >
                             <td>Republican</td>
+                            <td>{{stats.number[0].republicans}}</td> 
+                            <td>{{stats.partyForVote[0].republicans}}</td> 
+                            
                         </tr>
                         <tr id=statD>
                             <td>Democrat</td>
+                            <td>{{stats.number[0].democrats}}</td> 
+                            <td>{{stats.partyForVote[0].democrats}}</td> 
 
                         </tr>
                         <tr id=statI>
                             <td>Independent</td>
+                            <td>{{stats.number[0].independants}}</td> 
+                            <td>{{stats.partyForVote[0].independants}}</td> 
                         </tr>
                     </tbody>
                 </table>
@@ -118,8 +125,11 @@
                             <th>% Missed</th>
                         </tr>
                     </thead>
-                    <tbody id=leastAtt>
-
+                    <tbody >
+                        <tr v-for="(item, row) in stats.attendanceVote[0].missedMost">
+                            <td v-for="(member, cells) in stats.attendanceVote[0].missedMost[row]" :key="index">
+                            {{stats.attendanceVote[0].missedMost[row][cells]}} </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -137,7 +147,10 @@
                             <th>% Missed</th>
                         </tr>
                     </thead>
-                    <tbody id=mostAtt>
+                    <tr v-for="(item, row) in stats.attendanceVote[0].missedLeast">
+                            <td v-for="(member, cells) in stats.attendanceVote[0].missedLeast[row]" :key="index">
+                            {{stats.attendanceVote[0].missedLeast[row][cells]}} </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -148,11 +161,14 @@
         <p>@2016 TGIF | All rights reserved</p>
     </footer>
 
-
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="pro-congress-113-senate.js"> </script>
     <script src="statistics.js"> </script>
-    <script src="view.js"> </script>
-
+    <script>
+            var url = 'https://api.propublica.org/congress/v1/113/senate/members.json'
+          </script>
+    <script src="Vue.js"> </script>
+</div>
 </body>
 
 </html>
