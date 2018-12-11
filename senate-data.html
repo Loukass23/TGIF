@@ -61,42 +61,48 @@
     </div>
   </nav>
 
-  <div class="container-fluid text-center">
-    <div class="row content">
-      <div class="col-sm-2 sidenav">
-        <p><a href="#"></a></p>
-
-      </div>
-
-      <div class="col-sm-8 text-left">
+  <div class="container text-center">
+      <div class="row">
+<div class="col-sm-2 mt-auto " id="loader">
+            <div class="loader"></div></div>
+      <div class="col-sm-10 text-left">
         <h1>Senators</h1>
-        <div class="row">
+      </div>
+        
+        <div id="app" class="row">
           <div class="col-sm-5 ">
+                          
+  
             <div class="form-check form-check-inline" id="checkboxPty">
-              <input type="checkbox" name="checkboxParty" value='D'>
+                <input type="checkbox" id="rep" value="R" v-model="checkedNames">
+                <label for="rep">Republicans</label>
+                <input type="checkbox" id="dem" value="D" v-model="checkedNames">
+                <label for="dem">Democrats</label>
+                <input type="checkbox" id="ind" value="I" v-model="checkedNames">
+                <label for="ind">Independants</label>
+              <!-- <input type="checkbox" v-model="checkedNames" value='D'>
+              <input type="checkbox" name="checkboxParty" value='D'> 
               <label class="form-check-label" for="inlineCheckbox1">Democrats</label>
-              <input type="checkbox" name="checkboxParty" value='R'>
+              <input type="checkbox"  v-model="checkedNames" value='R'>
               <label class="form-check-label" for="inlineCheckbox2">Republicans</label>
 
-              <input type="checkbox" name="checkboxParty" value='I'>
-              <label class="form-check-label" for="inlineCheckbox3">Independants</label>
+              <input type="checkbox" v-model="checkedNames" value='I'>
+              <label class="form-check-label" for="inlineCheckbox3">Independants</label> -->
             </div>
           </div>
 
           <div class="col-sm-5 ">
             <div class="form-group">
               <label for="sel1">Select State:</label>
-              <select class="filter form-control form-control-sm" id="dropDownStates">
+              <select v-model="selected" class="filter form-control form-control-sm" id="dropDownStates">
                 <option selected="selected">All</option>
 
               </select>
             </div>
           </div>
-          <div class="col-sm-2 " id="loader">
-              <div class="loader"></div>
-            </div>
+          
+            
        
-        <div id="app">
           
 
             <button v-on:click="filters()">Filter</button>
@@ -113,7 +119,7 @@
           </thead>
           
           <tbody>               
-            <tr v-for="senator in filteredList">
+            <tr  v-for="senator in filteredList">
               <td>{{ senator.first_name}} , {{ senator.last_name}}</td>
               <td>{{ senator.party}}</td>
               <td>{{ senator.seniority}}</td>
@@ -124,7 +130,8 @@
           </tbody>
         </table>
       </div>
-
+ 
+    </div>
 
    
 
@@ -135,7 +142,7 @@
 
   <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
   <script>var url ='https://api.propublica.org/congress/v1/113/senate/members.json' </script>
-  <script src="main2.js"> </script>
+  <script src="Vue.js"> </script>
 </body>
 
 </html>
