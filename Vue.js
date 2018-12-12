@@ -1,6 +1,9 @@
-const dropDownStates = document.getElementById('dropDownStates');
-const checkboxParty = document.getElementById('checkboxPty');
+// Vue.config.debug = true // turn on debugging mode
+// import PulseLoader from './PulseLoader.vue'
+// var PulseLoader = VueSpinner.PulseLoader
 const loader = document.getElementById("loader");
+//var PulseLoader = VueSpinner.PulseLoader;
+
 
 
 new Vue({
@@ -12,6 +15,7 @@ new Vue({
     selected: 'All',
     states: [],
     stats: []
+    //PulseLoader
 
   },
   methods: {
@@ -31,6 +35,7 @@ new Vue({
           this.senators = json.results[0].members;
           this.retrieved = true;
           this.buildDropdownStates();
+          this.stats = buidStatistic(this.senators);
 
         })
         .catch(function (error) {
@@ -44,7 +49,7 @@ new Vue({
   },
   created() {
     this.fetchJson();
-    if(statistics){this.stats = statistics;}
+    
     
   },
   computed: {

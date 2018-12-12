@@ -1,13 +1,10 @@
-var fullList = data.results[0].members;
-var percentage = Math.round(10 * fullList.length / 100);
 
-
-function getListsLenght(party) {
+function getListsLenght(fullList, party) {
     return fullList.filter(a => a.party == party).length;
 
 }
 
-function getAvVoteforParty(party) {
+function getAvVoteforParty(fullList, party) {
     var list = fullList.filter(a => a.party == party);
     if (list.length != 0) {
         var list2 = list.map(a => a.votes_with_party_pct);
@@ -18,9 +15,9 @@ function getAvVoteforParty(party) {
 }
 
 
-function getLoyaltyList(leastMost) {
+function getLoyaltyList(fullList, leastMost) {
     var res;
-    // arrow
+    var percentage = Math.round(10 * fullList.length / 100);
     var list = fullList.sort(function (a, b) {
         return a.votes_with_party_pct - b.votes_with_party_pct
     });
@@ -44,8 +41,9 @@ function getLoyaltyList(leastMost) {
 
 }
 
-function getAttendanceList(leastMost) {
+function getAttendanceList(fullList, leastMost) {
     var res;
+    var percentage = Math.round(10 * fullList.length / 100);
     var list = fullList.sort((a, b) => {
         return a.missed_votes_pct - b.missed_votes_pct
     });
@@ -69,25 +67,29 @@ function getAttendanceList(leastMost) {
 
 }
 
-var statistics = {
-    "number": [{
-        "republicans": getListsLenght('R'),
-        "democrats": getListsLenght('D'),
-        "independants": getListsLenght('I')
-    }, ],
-    "partyForVote": [{
-        "republicans": getAvVoteforParty('R'),
-        "democrats": getAvVoteforParty('D'),
-        "independants": getAvVoteforParty('I')
-    }, ],
-    "attendanceVote": [{
-        "missedLeast": getAttendanceList('least'),
-        "missedMost": getAttendanceList('most'),
+function buidStatistic(fetchedList) {
 
-    }],
-    "partyLoyalty": [{
-        "leastLoyal": getLoyaltyList('least'),
-        "mostLoyal": getLoyaltyList('most'),
-    }]
+    var statistics = {
+        "number": [{
+            "republicans": getListsLenght(fetchedList, 'R'),
+            "democrats": getListsLenght(fetchedList, 'D'),
+            "independants": getListsLenght(fetchedList, 'I')
+        }, ],
+        "partyForVote": [{
+            "republicans": getAvVoteforParty(fetchedList, 'R'),
+            "democrats": getAvVoteforParty(fetchedList, 'D'),
+            "independants": getAvVoteforParty(fetchedList, 'I')
+        }, ],
+        "attendanceVote": [{
+            "missedLeast": getAttendanceList(fetchedList, 'least'),
+            "missedMost": getAttendanceList(fetchedList, 'most'),
 
+        }],
+        "partyLoyalty": [{
+            "leastLoyal": getLoyaltyList(fetchedList, 'least'),
+            "mostLoyal": getLoyaltyList(fetchedList, 'most'),
+        }]
+
+    }
+    return statistics;
 }
