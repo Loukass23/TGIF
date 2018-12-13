@@ -89,22 +89,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr >
                             <td>Republican</td>
-                            <td>{{stats.number[0].republicans}}</td>
-                            <td>{{stats.partyForVote[0].republicans}}</td>
-
+                           <td> {{stats.atAglance[0].republicans[0]}}</td>                          
+                           <td> {{stats.atAglance[0].republicans[1]}}</td>                  
+                         
+                            
                         </tr>
-                        <tr id=statD>
+                        <tr>
                             <td>Democrat</td>
-                            <td>{{stats.number[0].democrats}}</td>
-                            <td>{{stats.partyForVote[0].democrats}}</td>
+                            <td>{{stats.atAglance[0].democrats[0]}}</td>  
+                            <td>{{stats.atAglance[0].democrats[1]}}</td>  
 
                         </tr>
                         <tr id=statI>
                             <td>Independent</td>
-                            <td>{{stats.number[0].independants}}</td>
-                            <td>{{stats.partyForVote[0].independants}}</td>
+                               <td> {{stats.atAglance[0].independants[0]}}</td>
+                               <td> {{stats.atAglance[0].independants[1]}}</td>
                         </tr>
                     </tbody>
                 </table>

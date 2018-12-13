@@ -89,22 +89,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <tr >
                             <td>Republican</td>
-                            <td>{{stats.number[0].republicans}}</td> 
-                            <td>{{stats.partyForVote[0].republicans}}</td> 
+                           <td> {{stats.atAglance[0].republicans[0]}}</td>                          
+                           <td> {{stats.atAglance[0].republicans[1]}}</td>                  
+                         
                             
                         </tr>
-                        <tr id=statD>
+                        <tr>
                             <td>Democrat</td>
-                            <td>{{stats.number[0].democrats}}</td> 
-                            <td>{{stats.partyForVote[0].democrats}}</td> 
+                            <td>{{stats.atAglance[0].democrats[0]}}</td>  
+                            <td>{{stats.atAglance[0].democrats[1]}}</td>  
 
                         </tr>
                         <tr id=statI>
                             <td>Independent</td>
-                            <td>{{stats.number[0].independants}}</td> 
-                            <td>{{stats.partyForVote[0].independants}}</td> 
+                               <td> {{stats.atAglance[0].independants[0]}}</td>
+                               <td> {{stats.atAglance[0].independants[1]}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -162,8 +164,8 @@
     </footer>
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="pro-congress-113-senate.js"> </script>
-    <script src="statistics.js"> </script>
+    <!-- <script src="pro-congress-113-senate.js"> </script>-->
+    <script src="statistics.js"> </script> 
     <script>
             var url = 'https://api.propublica.org/congress/v1/113/senate/members.json'
           </script>
