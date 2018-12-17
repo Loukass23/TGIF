@@ -35,7 +35,10 @@ buildDropdownStates(membersObj);
 addListeners();
 filterBuildTable(membersObj);
 
+for(var i in membersObj){
 
+  
+}
 //main
 var app = new Vue({
   el: '#app',
