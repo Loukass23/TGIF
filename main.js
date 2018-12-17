@@ -5,6 +5,7 @@ var tableBody = document.getElementById("senate-house-data");
 var loader = document.getElementById("loader");
 var dropdownStates =[];
 var state ="";
+let fullList = [];
 
 
 fetchJson(url , {
@@ -20,8 +21,9 @@ function fetchJson(url, init) {
       return response.json();    
     }
   }).then(function(json) {
-
-        startMain(json.results[0].members);
+  
+    fullList = json.results[0].members;
+        startMain(fullList);
    
     })
     .catch(console.error("Server Error"));
@@ -34,25 +36,6 @@ loader.innerHTML ="";
 buildDropdownStates(membersObj);
 addListeners();
 filterBuildTable(membersObj);
-
-for(var i in membersObj){
-
-  
-}
-//main
-var app = new Vue({
-  el: '#app',
-  data: {
-    employees: [
-    ]
-  }
-});
-
-app.employees = [ 
-  { name: membersObj.first_name , url: "http://company/jsmith.html" },
-  { name: "Mary Jones", url: "http://company/mjones.html" }
-];
-
 }
 //event listeners
 function addListeners(){
@@ -76,10 +59,11 @@ dropdownpState.addEventListener('change', filterBuildTable);
 
 
 //Parse members by party
-function filterBuildTable(membersObj) {
+function filterBuildTable() {
   tableBody.innerHTML = "";
   //new filter
-  var filteredMemberArray = membersObj.filter(member => {
+  
+  var filteredMemberArray = fullList.filter(member => {
     
     var stateFilterValue = getDropdownValue() == "All" || getDropdownValue() == member.state;
     var partyFilterValue = getCheckboxValue().length == 0 || getCheckboxValue().includes(member.party)
